@@ -49,17 +49,16 @@
                 </div>
             </div>
         </div>
-        <div  class="notify-section">
+        <div  class="notify-section"> 
                 <p class="notify"  id="not-matched">❌ Pin Didn't Match, Please try again</p>
                 <p  class="notify" id="matched">✅ Pin Matched... Secret door is opening for you</p>
+                <p class="notify"  id="maximum">❌ Too Many Unsuccessful Attempts, Try again after 30 seconds</p>  
             </div>
         </div>
     </div>
 
     <script>
-
-      function generatePin(){
-            
+        function generatePin(){
             var randomPin = Math.floor(1000 + Math.random() * 9000);
             document.getElementById('random-pin-number').value=randomPin;  
             document.getElementById('given-pin-number').value="";
@@ -67,7 +66,6 @@
             document.getElementById('matched').style.display='none';
             document.getElementById('not-matched').style.display='none';
             document.getElementById('maximum').style.display='none';
-
         }
 
         function setText(number){
@@ -75,11 +73,9 @@
             var x=numBox.value;
             var appendValue=x+number;
             numBox.value=appendValue; 
-
         }
 
         function setExp(exp){
-
             var numBox=document.getElementById('given-pin-number');  
             if(exp=="c"){
                 numBox.value="";
@@ -90,7 +86,6 @@
         }
 
         function submission(isAttempt){
-
             var generatedPin = document.getElementById('random-pin-number').value;
             var submittedPin = document.getElementById('given-pin-number').value;
  
@@ -104,15 +99,15 @@
                 document.getElementById('matched').style.display='none';
                 document.getElementById('maximum').style.display='none';
 
-                var attemptInput = document.getElementById('attempt-count').innerText;
-                var attemptCount = parseInt(attemptInput);
-                var attemptNewCount = attemptCount;
+            var attemptInput = document.getElementById('attempt-count').innerText;
+            var attemptCount = parseInt(attemptInput);
+            var attemptNewCount = attemptCount;
 
-                if(isAttempt==true && attemptCount>0){
-                    attemptNewCount = attemptCount-1;
-                }     
-                document.getElementById('attempt-count').innerText = attemptNewCount;  
-            }              
+            if(isAttempt==true && attemptCount>0){
+                attemptNewCount = attemptCount-1;
+            }     
+            document.getElementById('attempt-count').innerText = attemptNewCount;  
+            }            
         }
     </script>
 </body>
