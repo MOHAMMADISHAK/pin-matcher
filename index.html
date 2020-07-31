@@ -64,8 +64,8 @@
         var flag = false;
 
         function generatePin(){
-            var num = Math.random()*10000;
-            var randomPin = Math.round(num);
+            
+            var randomPin = Math.floor(1000 + Math.random() * 9000);
             document.getElementById('random-pin-number').value=randomPin;  
             document.getElementById('given-pin-number').value="";
             document.getElementById('attempt-count').innerText="3";
