@@ -42,28 +42,38 @@
                                 <div onclick="setExp('c')" class="button">C</div>
                             </div>
                             <div>
-                                <button onclick="submission()" type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <button onclick="submission(true)" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left"><span id="attempt-count">3</span> try left</p>
                             </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="notify-section">
-            <p id="not-matched" class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p id="matched" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        <div  class="notify-section">
+          
+                <p class="notify"  id="not-matched">❌ Pin Didn't Match, Please try again</p>
+                <p  class="notify" id="matched">✅ Pin Matched... Secret door is opening for you</p>
+                <p class="notify"  id="maximum">❌ Too Many Unsuccessful Attempts, Try again after 30 seconds</p>
+                
+            </div>
         </div>
     </div>
 
     <script>
 
-        
-
+        var flag = false;
 
         function generatePin(){
             var num = Math.random()*10000;
             var randomPin = Math.round(num);
             document.getElementById('random-pin-number').value=randomPin;  
+            document.getElementById('given-pin-number').value="";
+            document.getElementById('attempt-count').innerText="3";
+            document.getElementById('matched').style.display='none';
+            document.getElementById('not-matched').style.display='none';
+            document.getElementById('maximum').style.display='none';
+
+
         }
 
         function setText(number){
@@ -85,26 +95,37 @@
             }
         }
 
-        function submission(){
+        function submission(isAttempt){
 
             var generatedPin = document.getElementById('random-pin-number').value;
             var submittedPin = document.getElementById('given-pin-number').value;
 
-            console.log(generatedPin);
-            console.log(submittedPin);
             
-
-            if(submittedPin==generatedPin)
-            {
+            if(generatedPin==submittedPin){
                 document.getElementById('matched').style.display='block';
-       
+                document.getElementById('not-matched').style.display='none';
+                document.getElementById('maximum').style.display='none';
             }
             else{
                 document.getElementById('not-matched').style.display='block';
+                document.getElementById('matched').style.display='none';
+                document.getElementById('maximum').style.display='none';
 
-            }
+                var attemptInput = document.getElementById('attempt-count').innerText;
+                var attemptCount = parseInt(attemptInput);
             
+                var attemptNewCount = attemptCount;
+
+                if(isAttempt==true && attemptCount>0){
+                    attemptNewCount = attemptCount-1;
+                }     
+
+                document.getElementById('attempt-count').innerText = attemptNewCount;  
+            }              
         }
+
+        
+
       
 
     </script>
